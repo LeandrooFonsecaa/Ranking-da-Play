@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super 8 – Beach Tênis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Super 8 – Beach Tênis</h1>
+    <span class="tag">mobile</span>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>1) Jogadores</h2>
+      <div class="row">
+        <input id="playerName" type="text" placeholder="Nome do jogador" />
+        <button id="addPlayerBtn">Adicionar</button>
+      </div>
+      <div id="playersList" class="chips"></div>
+      <small class="muted">Dica: adicione 8 jogadores, mas funciona com qualquer número ≥4.</small>
+    </section>
+
+    <section class="card">
+      <h2>2) Registrar partida (duplas)</h2>
+      <label class="switch">
+        <input type="checkbox" id="allowTB" />
+        <span class="slider"></span>
+      </label>
+      <span class="switch-label">Permitir tiebreak 7–6</span>
+
+      <div class="grid2">
+        <div>
+          <h3>Dupla A</h3>
+          <select id="a1"></select>
+          <select id="a2"></select>
+        </div>
+        <div>
+          <h3>Dupla B</h3>
+          <select id="b1"></select>
+          <select id="b2"></select>
+        </div>
+      </div>
+      <div class="row">
+        <input id="scoreA" type="number" min="0" max="7" placeholder="Games A" />
+        <span class="x">x</span>
+        <input id="scoreB" type="number" min="0" max="7" placeholder="Games B" />
+        <input id="roundNo" type="number" min="1" value="1" class="round" />
+        <button id="addMatchBtn">Registrar</button>
+      </div>
+      <small class="muted">Regra padrão: vencedor chega a 6 (0..5). Ative o tiebreak para 7–6.</small>
+
+      <div id="msg" class="msg"></div>
+
+      <h3>Partidas</h3>
+      <div id="matches"></div>
+    </section>
+
+    <section class="card">
+      <h2>3) Ranking</h2>
+      <div id="table"></div>
+      <button id="genZap">Gerar mensagem para WhatsApp</button>
+      <textarea id="zap" rows="8" readonly></textarea>
+    </section>
+  </main>
+
+  <footer>
+    <small>Feito para rodar no celular • Salva os dados localmente (navegador).</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
