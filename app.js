@@ -114,10 +114,20 @@ function renderTable(){
 
 $("#genZap").addEventListener("click", ()=>{
   const lines = [];
+  // Título
   lines.push("🎾 Resultados das partidas — RANKING DA PLAY BT");
-  lines.push(randomFrase()); // Frase logo abaixo do título
+  // Linha em branco
+  lines.push("");
+  // Frase zueira
+  lines.push(randomFrase());
+  // Outra linha em branco
+  lines.push("");
+
+  // Partidas
   if(!matches.length){ lines.push("• Nenhuma partida registrada ainda."); }
   else { matches.forEach(m=> lines.push(`• R${m.round}: ${m.team1.join(' & ')} ${m.s1} x ${m.s2} ${m.team2.join(' & ')}`)); }
+
+  // Ranking
   lines.push(""); lines.push("🏆 Ranking (soma de games)");
   const data = computeTotals();
   if(!data.length){ lines.push("— Sem jogadores cadastrados —"); }
@@ -127,7 +137,10 @@ $("#genZap").addEventListener("click", ()=>{
       lines.push(`${medal} ${name} — ${pts} games`);
     });
   }
-  lines.push(""); lines.push("🏖️ Bora marcar o próximo?"); lines.push(randomFrase());
+  lines.push("");
+  lines.push("🏖️ Bora marcar o próximo?");
+  lines.push(randomFrase());
+
   $("#zap").value = lines.join("\n");
 });
 
