@@ -26,6 +26,7 @@ $("#addPlayerBtn").addEventListener("click", ()=>{
 });
 
 function msg(t){ $("#msg").textContent = t; }
+function toast(t){ const el=$("#toast"); if(!el) return; el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"), 1400); }
 
 document.addEventListener("click", (e)=>{
   if(e.target.id === "clearMatchesBtn"){
@@ -89,7 +90,7 @@ $("#addMatchBtn").addEventListener("click", ()=>{
 
 function renderMatches(){
   const box = $("#matches");
-  if(!matches.length){ box.innerHTML = '<div class="muted">Nenhuma partida registrada.</div>'; return; }
+  if(!matches.length){ box.innerHTML = '<div class="muted">Nenhuma partida registrado.</div>'; return; }
   box.innerHTML = matches.map(m=>`
     <div class="match">
       <strong>R${m.round}</strong> • ${m.team1.join(" & ")} <b>${m.s1} x ${m.s2}</b> ${m.team2.join(" & ")}
@@ -146,6 +147,22 @@ $("#genZap").addEventListener("click", ()=>{
   lines.push("🏖️ Bora marcar o próximo?");
 
   $("#zap").value = lines.join("\n");
+});
+
+// Copy to clipboard
+$("#copyZap").addEventListener("click", async ()=>{
+  const txt = $("#zap").value.trim();
+  if(!txt){ msg("Gere a mensagem primeiro."); return; }
+  try{
+    await navigator.clipboard.writeText(txt);
+    toast("Mensagem copiada ✔");
+  }catch(e){
+    // fallback
+    const ta = $("#zap");
+    ta.select(); ta.setSelectionRange(0, 99999);
+    const ok = document.execCommand("copy");
+    toast(ok ? "Mensagem copiada ✔" : "Não foi possível copiar");
+  }
 });
 
 function render(){ renderMatches(); renderTable(); }

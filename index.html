@@ -69,8 +69,12 @@
     <section class="card">
       <h2>3) Ranking</h2>
       <div id="table"></div>
-      <button id="genZap">Gerar mensagem para WhatsApp</button>
+      <div class="row">
+        <button id="genZap">Gerar mensagem para WhatsApp</button>
+        <button id="copyZap" title="Copiar para área de transferência">Copiar mensagem</button>
+      </div>
       <textarea id="zap" rows="12" readonly></textarea>
+      <div id="toast" class="toast" aria-live="polite"></div>
     </section>
   </main>
 
