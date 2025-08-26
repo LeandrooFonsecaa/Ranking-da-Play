@@ -36,6 +36,15 @@ document.addEventListener("click", (e)=>{
       render();
     }
   }
+  if(e.target.id === "undoLastBtn"){
+    if(!matches.length){ msg("Não há partidas para desfazer."); return; }
+    const last = matches[matches.length-1];
+    if(confirm(`Remover a última partida?\nR${last.round}: ${last.team1.join(' & ')} ${last.s1} x ${last.s2} ${last.team2.join(' & ')}`)){
+      matches.pop();
+      msg("Última partida removida.");
+      render();
+    }
+  }
   if(e.target.id === "resetAllBtn"){
     if(confirm("Começar do zero? (Apaga jogadores e partidas)")){
       players.splice(0, players.length);
@@ -110,15 +119,32 @@ function renderTable(){
 }
 
 $("#genZap").addEventListener("click", ()=>{
-  const data = computeTotals();
+  // 1) Listar cada partida
   const lines = [];
-  lines.push("🚨 Ranking oficial — RANKING DA PLAY BT 🚨");
-  data.forEach(([name,pts],i)=>{
-    const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}º`;
-    lines.push(`${medal} ${name} — ${pts} games`);
-  });
+  lines.push("🎾 Resultados das partidas — RANKING DA PLAY BT");
+  if(!matches.length){
+    lines.push("• Nenhuma partida registrada ainda.");
+  } else {
+    matches.forEach(m=>{
+      lines.push(`• R${m.round}: ${m.team1.join(' & ')} ${m.s1} x ${m.s2} ${m.team2.join(' & ')}`);
+    });
+  }
+
+  // 2) Ranking final
+  lines.push("");
+  lines.push("🏆 Ranking (soma de games)");
+  const data = computeTotals();
+  if(!data.length){
+    lines.push("— Sem jogadores cadastrados —");
+  } else {
+    data.forEach(([name,pts],i)=>{
+      const medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':`${i+1}º`;
+      lines.push(`${medal} ${name} — ${pts} games`);
+    });
+  }
   lines.push("");
   lines.push("🏖️ Bora marcar o próximo?");
+
   $("#zap").value = lines.join("\n");
 });
 
