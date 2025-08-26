@@ -24,7 +24,7 @@
         <button class="danger" id="clearMatchesBtn">Limpar partidas</button>
         <button class="danger" id="resetAllBtn">Começar do zero</button>
       </div>
-      <small class="muted">Dica: adicione 8 jogadores, mas funciona com qualquer número ≥4.</small>
+      <small class="muted">Dica: adicione 8 jogadores, mas funciona com qualquer número ≥ 4.</small>
     </section>
 
     <section class="card">
@@ -54,7 +54,10 @@
         <input id="roundNo" type="number" min="1" value="1" class="round" />
         <button id="addMatchBtn">Registrar</button>
       </div>
-      <small class="muted">Regra padrão: vencedor chega a 6 (0..5). Ative o tiebreak para 7–6.</small>
+      <small class="muted">
+        Regras: vitória com <b>6–0 a 6–5</b>. Se der <b>5–5</b>, vai a 2 ⇒ vale <b>7–5</b>. 
+        Ative o tiebreak para permitir <b>7–6</b>.
+      </small>
 
       <div id="msg" class="msg"></div>
 
@@ -71,7 +74,7 @@
   </main>
 
   <footer>
-    <small>Feito para rodar no celular • Salva os dados localmente (navegador).</small>
+    <small>Feito para rodar no celular • Salva dados localmente (navegador).</small>
   </footer>
 
   <script src="app.js"></script>
