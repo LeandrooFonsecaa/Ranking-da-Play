@@ -30,11 +30,19 @@
 
     <section class="card">
       <h2>2) Registrar partida (duplas)</h2>
-      <label class="switch">
-        <input type="checkbox" id="allowTB" />
-        <span class="slider"></span>
-      </label>
-      <span class="switch-label">Permitir tiebreak 7–6</span>
+      <div class="row">
+        <label class="switch">
+          <input type="checkbox" id="shortSet" />
+          <span class="slider"></span>
+        </label>
+        <span class="switch-label">Set curto (até 4)</span>
+
+        <label class="switch" style="margin-left:16px">
+          <input type="checkbox" id="allowTB" />
+          <span class="slider"></span>
+        </label>
+        <span class="switch-label">Permitir tiebreak (7–6 no set longo • 5–4 no set curto)</span>
+      </div>
 
       <div class="grid2">
         <div>
@@ -55,10 +63,7 @@
         <input id="roundNo" type="number" min="1" value="1" class="round" />
         <button id="addMatchBtn">Registrar</button>
       </div>
-      <small class="muted">
-        Regras: vitória com <b>6–0 a 6–5</b>. Se der <b>5–5</b>, vai a 2 ⇒ vale <b>7–5</b>. 
-        Ative o tiebreak para permitir <b>7–6</b>.
-      </small>
+      <small class="muted" id="ruleHint"></small>
 
       <div id="msg" class="msg"></div>
 

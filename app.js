@@ -29,6 +29,15 @@ function randomFrase(){
   return frasesZueiras[Math.floor(Math.random() * frasesZueiras.length)];
 }
 
+function updateRuleHint(){
+  const short = $("#shortSet").checked;
+  const tb = $("#allowTB").checked;
+  const hint = short
+    ? `Regras (set curto): vitória com 4–0 a 4–3. ${tb ? "Com tiebreak: 5–4 permitido." : "Ative o tiebreak para permitir 5–4."}`
+    : `Regras (set longo): vitória com 6–0 a 6–5. 5–5 vai a 2 ⇒ 7–5. ${tb ? "Com tiebreak: 7–6 permitido." : "Ative o tiebreak para permitir 7–6."}`;
+  $("#ruleHint").textContent = hint;
+}
+
 function updatePlayersUI(){
   const list = $("#playersList");
   list.innerHTML = players.map(p=>`<span>${p}</span>`).join("");
@@ -52,6 +61,10 @@ $("#addPlayerBtn").addEventListener("click", ()=>{
 function msg(t){ $("#msg").textContent = t; }
 function toast(t){ const el=$("#toast"); if(!el) return; el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"), 1400); }
 
+document.addEventListener("change", (e)=>{
+  if(e.target.id==="shortSet" || e.target.id==="allowTB"){ updateRuleHint(); }
+});
+
 document.addEventListener("click", (e)=>{
   if(e.target.id === "clearMatchesBtn"){
     if(!matches.length){ msg("Não há partidas para limpar."); return; }
@@ -71,11 +84,17 @@ document.addEventListener("click", (e)=>{
   }
 });
 
-function validScore(a,b,allowTB){
-  const six = (a===6 && b>=0 && b<=5) || (b===6 && a>=0 && a<=5);
-  const sevenFive = (a===7 && b===5) || (b===7 && a===5);
-  const sevenSix = allowTB && ((a===7 && b===6) || (a===6 && b===7));
-  return six || sevenFive || sevenSix;
+function validScore(a,b,allowTB,short){
+  if(short){
+    const four = (a===4 && b>=0 && b<=3) || (b===4 && a>=0 && a<=3);
+    const fiveFour = allowTB && ((a===5 && b===4) || (a===4 && b===5));
+    return four || fiveFour;
+  }else{
+    const six = (a===6 && b>=0 && b<=5) || (b===6 && a>=0 && a<=5);
+    const sevenFive = (a===7 && b===5) || (b===7 && a===5);
+    const sevenSix = allowTB && ((a===7 && b===6) || (a===6 && b===7));
+    return six || sevenFive || sevenSix;
+  }
 }
 
 $("#addMatchBtn").addEventListener("click", ()=>{
@@ -84,10 +103,11 @@ $("#addMatchBtn").addEventListener("click", ()=>{
   const s1 = parseInt($("#scoreA").value); const s2 = parseInt($("#scoreB").value);
   const r  = parseInt($("#roundNo").value) || 1;
   const allowTB = $("#allowTB").checked;
+  const short = $("#shortSet").checked;
   if(t1.includes("")||t2.includes("")){ msg("Selecione jogadores."); return; }
   if(new Set([...t1,...t2]).size!==4){ msg("Jogador repetido."); return; }
   if(Number.isNaN(s1)||Number.isNaN(s2)){ msg("Informe os games."); return; }
-  if(!validScore(s1,s2,allowTB)){ msg("Placar inválido."); return; }
+  if(!validScore(s1,s2,allowTB,short)){ msg("Placar inválido para as regras atuais."); return; }
   matches.push({round:r, team1:t1, team2:t2, s1, s2}); render();
 });
 
@@ -114,20 +134,14 @@ function renderTable(){
 
 $("#genZap").addEventListener("click", ()=>{
   const lines = [];
-  // Título
   lines.push("🎾 Resultados das partidas — RANKING DA PLAY BT");
-  // Linha em branco
   lines.push("");
-  // Frase zueira
   lines.push(randomFrase());
-  // Outra linha em branco
   lines.push("");
 
-  // Partidas
   if(!matches.length){ lines.push("• Nenhuma partida registrada ainda."); }
   else { matches.forEach(m=> lines.push(`• R${m.round}: ${m.team1.join(' & ')} ${m.s1} x ${m.s2} ${m.team2.join(' & ')}`)); }
 
-  // Ranking
   lines.push(""); lines.push("🏆 Ranking (soma de games)");
   const data = computeTotals();
   if(!data.length){ lines.push("— Sem jogadores cadastrados —"); }
@@ -150,7 +164,7 @@ $("#copyZap").addEventListener("click", async ()=>{
   catch(e){ const ta=$("#zap"); ta.select(); ta.setSelectionRange(0,99999); document.execCommand("copy"); toast("Mensagem copiada ✔"); }
 });
 
-function render(){ renderMatches(); renderTable(); }
+function render(){ renderMatches(); renderTable(); updateRuleHint(); }
 (function(){ try{ const s=JSON.parse(localStorage.getItem("playbt_state")||"{}"); if(s.players)players.push(...s.players); if(s.matches)matches.push(...s.matches);}catch(_){}
   updatePlayersUI(); render(); })();
 setInterval(()=> localStorage.setItem("playbt_state", JSON.stringify({players,matches})),1000);
