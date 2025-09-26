@@ -38,7 +38,7 @@ button.danger{background:#1a1a1a;color:#ffb4b4;border:1px solid #442;}
 textarea{width:100%;margin-top:10px;background:#0b0b0b}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips span{background:#0b0b0b;border:1px solid #2a2a2a;padding:6px 10px;border-radius:999px}
-.muted{color:var(--muted)}
+.muted{color:#9aa0a6}
 .msg{margin-top:10px;color:#ff7676}
 #matches{display:flex;flex-direction:column;gap:8px;margin-top:8px}
 .match{background:#0b0b0b;border:1px solid #2a2a2a;border-radius:12px;padding:10px}
