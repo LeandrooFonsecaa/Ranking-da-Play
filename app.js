@@ -156,6 +156,34 @@ $("#genZap").addEventListener("click", ()=>{
 
   $("#zap").value = lines.join("\n");
 });
+// Copiar texto da caixa para a área de transferência (com fallback)
+document.getElementById('copyZap').addEventListener('click', async () => {
+  const ta = document.getElementById('zap');
+  const txt = ta.value || '';
+
+  if (!txt.trim()) {
+    toast('Nada para copiar.');
+    return;
+  }
+
+  try {
+    // Preferência: Clipboard API moderna (HTTPS e gesto do usuário)
+    await navigator.clipboard.writeText(txt);
+    toast('Mensagem copiada!');
+  } catch (e) {
+    // Fallback para navegadores antigos (iOS/Safari antigos, etc.)
+    try {
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, 999999); // iOS
+      const ok = document.execCommand('copy');
+      toast(ok ? 'Mensagem copiada!' : 'Não consegui copiar 😕');
+    } catch {
+      toast('Não consegui copiar 😕');
+    }
+  }
+});
+
 
 function render(){ renderMatches(); renderTable(); updateRuleHint(); }
 (function(){ try{ const s=JSON.parse(localStorage.getItem("playbt_state")||"{}"); if(s.players)players.push(...s.players); if(s.matches)matches.push(...s.matches);}catch(_){}
