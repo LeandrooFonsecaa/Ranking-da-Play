@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ranking da Play BT</title>
-  <link rel="stylesheet" href="style.css?v=v6.1" />
+  <link rel="stylesheet" href="style.css?v=v6.3" />
 </head>
 <body>
   <header>
@@ -32,39 +32,22 @@
       <h2>2) Registrar partida (duplas)</h2>
 
       <div class="row">
-        <!-- Set curto -->
-        <label class="switch">
-          <input type="checkbox" id="shortSet" />
-          <span class="slider"></span>
-        </label>
+        <label class="switch"><input type="checkbox" id="shortSet" /><span class="slider"></span></label>
         <span class="switch-label">Set curto (até 4)</span>
 
-        <!-- Tiebreak -->
-        <label class="switch" style="margin-left:16px">
-          <input type="checkbox" id="allowTB" />
-          <span class="slider"></span>
-        </label>
+        <label class="switch" style="margin-left:16px"><input type="checkbox" id="allowTB" /><span class="slider"></span></label>
         <span class="switch-label">Permitir tiebreak (7–6 no set longo • 5–4 no set curto)</span>
 
-        <!-- Novo: Permitir 6–5 -->
-        <label class="switch" style="margin-left:16px">
-          <input type="checkbox" id="allow65" />
-          <span class="slider"></span>
-        </label>
+        <label class="switch" style="margin-left:16px"><input type="checkbox" id="allow65" /><span class="slider"></span></label>
         <span class="switch-label">Permitir 6–5 (Super 8 longo)</span>
+
+        <label class="switch" style="margin-left:16px"><input type="checkbox" id="fixed6" /><span class="slider"></span></label>
+        <span class="switch-label">6 games fixos (A+B=6)</span>
       </div>
 
       <div class="grid2">
-        <div>
-          <h3>Dupla A</h3>
-          <select id="a1"></select>
-          <select id="a2"></select>
-        </div>
-        <div>
-          <h3>Dupla B</h3>
-          <select id="b1"></select>
-          <select id="b2"></select>
-        </div>
+        <div><h3>Dupla A</h3><select id="a1"></select><select id="a2"></select></div>
+        <div><h3>Dupla B</h3><select id="b1"></select><select id="b2"></select></div>
       </div>
 
       <div class="row">
@@ -77,7 +60,6 @@
 
       <small class="muted" id="ruleHint"></small>
       <div id="msg" class="msg"></div>
-
       <h3>Partidas</h3>
       <div id="matches"></div>
     </section>
@@ -87,7 +69,7 @@
       <div id="table"></div>
       <div class="row">
         <button id="genZap">Gerar mensagem para WhatsApp</button>
-        <button id="copyZap" title="Copiar para área de transferência">Copiar mensagem</button>
+        <button id="copyZap">Copiar mensagem</button>
       </div>
       <textarea id="zap" rows="14" readonly></textarea>
       <div id="toast" class="toast" aria-live="polite"></div>
@@ -95,9 +77,9 @@
   </main>
 
   <footer>
-    <small>Feito para rodar no celular • Salva dados localmente (navegador). • <b>v6.1</b></small>
+    <small>Feito para rodar no celular • Salva dados localmente (navegador). • <b>v6.3</b></small>
   </footer>
 
-  <script src="app.js?v=v6.1"></script>
+  <script src="app.js?v=v6.3"></script>
 </body>
 </html>
