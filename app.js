@@ -1,4 +1,4 @@
-// v5d4 - set curto + cache-busting
+// v6.1 - Super 8 com chave "Permitir 6–5" + set curto + tiebreak + copiar WhatsApp
 const players = [];
 const matches = [];
 const frasesZueiras = [
@@ -30,9 +30,10 @@ function randomFrase(){ return frasesZueiras[Math.floor(Math.random()*frasesZuei
 function updateRuleHint(){
   const short = $("#shortSet").checked;
   const tb = $("#allowTB").checked;
+  const allow65 = $("#allow65").checked;
   const hint = short
     ? `Regras (set curto): vitória com 4–0 a 4–3. ${tb ? "Com tiebreak: 5–4 permitido." : "Ative o tiebreak para permitir 5–4."}`
-    : `Regras (set longo): vitória com 6–0 a 6–5. 5–5 vai a 2 ⇒ 7–5. ${tb ? "Com tiebreak: 7–6 permitido." : "Ative o tiebreak para permitir 7–6."}`;
+    : `Regras (Super 8): ${allow65 ? "vitória com 6–0 a 6–5" : "vitória com 6–0 a 6–4 (6–5 NÃO vale)"}; 5–5 vai a 2 ⇒ 7–5. ${tb ? "Com tiebreak: 7–6 também é válido." : "Ative o tiebreak para permitir 7–6."}`;
   $("#ruleHint").textContent = hint;
 }
 
@@ -60,7 +61,7 @@ function msg(t){ $("#msg").textContent = t; }
 function toast(t){ const el=$("#toast"); if(!el) return; el.textContent=t; el.classList.add("show"); setTimeout(()=>el.classList.remove("show"), 1400); }
 
 document.addEventListener("change", (e)=>{
-  if(e.target.id==="shortSet" || e.target.id==="allowTB"){ updateRuleHint(); }
+  if(["shortSet","allowTB","allow65"].includes(e.target.id)){ updateRuleHint(); }
 });
 
 document.addEventListener("click", (e)=>{
@@ -82,16 +83,25 @@ document.addEventListener("click", (e)=>{
   }
 });
 
-function validScore(a,b,allowTB,short){
+// ✅ Validação de placar
+function validScore(a,b,allowTB,short,allow65){
   if(short){
+    // Set curto: 4–0..4–3; com tiebreak: 5–4
     const four = (a===4 && b>=0 && b<=3) || (b===4 && a>=0 && a<=3);
     const fiveFour = allowTB && ((a===5 && b===4) || (a===4 && b===5));
     return four || fiveFour;
   }else{
-    const six = (a===6 && b>=0 && b<=5) || (b===6 && a>=0 && a<=5);
+    // Super 8 longo:
+    // - se allow65: 6–0..6–5
+    // - se não:    6–0..6–4 (6–5 NÃO vale)
+    const sixWin = allow65
+      ? ((a===6 && b>=0 && b<=5) || (b===6 && a>=0 && a<=5))
+      : ((a===6 && b>=0 && b<=4) || (b===6 && a>=0 && a<=4));
+    // 5–5 vai a 2 ⇒ 7–5
     const sevenFive = (a===7 && b===5) || (b===7 && a===5);
+    // Tiebreak opcional ⇒ 7–6
     const sevenSix = allowTB && ((a===7 && b===6) || (a===6 && b===7));
-    return six || sevenFive || sevenSix;
+    return sixWin || sevenFive || sevenSix;
   }
 }
 
@@ -103,11 +113,19 @@ $("#addMatchBtn").addEventListener("click", ()=>{
   const r  = parseInt($("#roundNo").value, 10) || 1;
   const allowTB = $("#allowTB").checked;
   const short = $("#shortSet").checked;
+  const allow65 = $("#allow65").checked;
+
   if(t1.includes("")||t2.includes("")){ msg("Selecione jogadores."); return; }
   if(new Set([...t1,...t2]).size!==4){ msg("Jogador repetido."); return; }
   if(Number.isNaN(s1)||Number.isNaN(s2)){ msg("Informe os games."); return; }
-  if(!validScore(s1,s2,allowTB,short)){ msg("Placar inválido para as regras atuais."); return; }
-  matches.push({round:r, team1:t1, team2:t2, s1, s2}); render();
+
+  if(!validScore(s1,s2,allowTB,short,allow65)){
+    msg("Placar inválido para as regras atuais.");
+    return;
+  }
+
+  matches.push({round:r, team1:t1, team2:t2, s1, s2});
+  render();
 });
 
 function renderMatches(){
@@ -156,34 +174,18 @@ $("#genZap").addEventListener("click", ()=>{
 
   $("#zap").value = lines.join("\n");
 });
-// Copiar texto da caixa para a área de transferência (com fallback)
+
+// Copiar WhatsApp com fallback
 document.getElementById('copyZap').addEventListener('click', async () => {
   const ta = document.getElementById('zap');
   const txt = ta.value || '';
-
-  if (!txt.trim()) {
-    toast('Nada para copiar.');
-    return;
-  }
-
-  try {
-    // Preferência: Clipboard API moderna (HTTPS e gesto do usuário)
-    await navigator.clipboard.writeText(txt);
-    toast('Mensagem copiada!');
-  } catch (e) {
-    // Fallback para navegadores antigos (iOS/Safari antigos, etc.)
-    try {
-      ta.focus();
-      ta.select();
-      ta.setSelectionRange(0, 999999); // iOS
-      const ok = document.execCommand('copy');
-      toast(ok ? 'Mensagem copiada!' : 'Não consegui copiar 😕');
-    } catch {
-      toast('Não consegui copiar 😕');
-    }
+  if (!txt.trim()) { toast('Nada para copiar.'); return; }
+  try { await navigator.clipboard.writeText(txt); toast('Mensagem copiada!'); }
+  catch (e) {
+    try { ta.focus(); ta.select(); ta.setSelectionRange(0, 999999); const ok = document.execCommand('copy'); toast(ok ? 'Mensagem copiada!' : 'Não consegui copiar 😕'); }
+    catch { toast('Não consegui copiar 😕'); }
   }
 });
-
 
 function render(){ renderMatches(); renderTable(); updateRuleHint(); }
 (function(){ try{ const s=JSON.parse(localStorage.getItem("playbt_state")||"{}"); if(s.players)players.push(...s.players); if(s.matches)matches.push(...s.matches);}catch(_){}
