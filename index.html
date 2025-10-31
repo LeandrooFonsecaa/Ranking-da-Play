@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Ranking da Play BT</title>
-  <link rel="stylesheet" href="style.css?v=v5d4" />
+  <link rel="stylesheet" href="style.css?v=v6.1" />
 </head>
 <body>
   <header>
@@ -30,18 +30,28 @@
 
     <section class="card">
       <h2>2) Registrar partida (duplas)</h2>
+
       <div class="row">
+        <!-- Set curto -->
         <label class="switch">
           <input type="checkbox" id="shortSet" />
           <span class="slider"></span>
         </label>
         <span class="switch-label">Set curto (até 4)</span>
 
+        <!-- Tiebreak -->
         <label class="switch" style="margin-left:16px">
           <input type="checkbox" id="allowTB" />
           <span class="slider"></span>
         </label>
         <span class="switch-label">Permitir tiebreak (7–6 no set longo • 5–4 no set curto)</span>
+
+        <!-- Novo: Permitir 6–5 -->
+        <label class="switch" style="margin-left:16px">
+          <input type="checkbox" id="allow65" />
+          <span class="slider"></span>
+        </label>
+        <span class="switch-label">Permitir 6–5 (Super 8 longo)</span>
       </div>
 
       <div class="grid2">
@@ -56,6 +66,7 @@
           <select id="b2"></select>
         </div>
       </div>
+
       <div class="row">
         <input id="scoreA" type="number" min="0" max="7" placeholder="Games A" />
         <span class="x">x</span>
@@ -63,8 +74,8 @@
         <input id="roundNo" type="number" min="1" value="1" class="round" />
         <button id="addMatchBtn">Registrar</button>
       </div>
-      <small class="muted" id="ruleHint"></small>
 
+      <small class="muted" id="ruleHint"></small>
       <div id="msg" class="msg"></div>
 
       <h3>Partidas</h3>
@@ -84,9 +95,9 @@
   </main>
 
   <footer>
-    <small>Feito para rodar no celular • Salva dados localmente (navegador). • <b>v5d4</b></small>
+    <small>Feito para rodar no celular • Salva dados localmente (navegador). • <b>v6.1</b></small>
   </footer>
 
-  <script src="app.js?v=v5d4"></script>
+  <script src="app.js?v=v6.1"></script>
 </body>
 </html>
