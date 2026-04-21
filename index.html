@@ -2,84 +2,419 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ranking da Play BT</title>
-  <link rel="stylesheet" href="style.css?v=v6.3" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#080e14" />
+  <title>Portal Oficial Araguaia 2026</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Caveat:wght@600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <header>
-    <h1>Ranking da Play BT</h1>
-    <span class="tag">mobile</span>
+
+  <!-- Background layers -->
+  <div class="bg-base"></div>
+  <div class="bg-photo"></div>
+  <div class="bg-overlay-dark"></div>
+  <div class="water-lines"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="siteHeader">
+    <div class="header-inner">
+      <div class="logo-area">
+        <img src="logo.png" alt="Pesca & Cia" class="logo-img" />
+        <div>
+          <h1 class="logo-title">ARAGUAIA</h1>
+          <span class="logo-sub">PESCARIA ESPORTIVA · 2026</span>
+        </div>
+      </div>
+
+      <nav class="nav-pills" id="mainNav">
+        <button class="nav-btn active" data-section="dashboard">🏠 Início</button>
+        <button class="nav-btn" data-section="cronograma">📅 Cronograma</button>
+        <button class="nav-btn" data-section="regulamento">📜 Regulamento</button>
+        <button class="nav-btn" data-section="cardapio">🍖 Cardápio</button>
+        <button class="nav-btn" data-section="competicao">🏆 Competição</button>
+        <button class="nav-btn" data-section="logistica">🚤 Logística</button>
+        <button class="nav-btn" data-section="galeria">📸 Galeria</button>
+        <button class="nav-btn" data-section="transparencia">🔒 Transparência</button>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </div>
   </header>
 
-  <main>
-    <section class="card">
-      <h2>1) Jogadores</h2>
-      <div class="row">
-        <input id="playerName" type="text" placeholder="Nome do jogador" />
-        <button id="addPlayerBtn">Adicionar</button>
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+
+    <!-- DASHBOARD -->
+    <section class="section active" id="dashboard">
+      <div class="section-hero">
+        <h2 class="section-title">PORTAL OFICIAL</h2>
+        <p class="section-desc">A maior pescaria esportiva do Alto Jequitinhonha está de volta. Prepare sua vara, afie o anzol e que os melhores pontos vençam!</p>
       </div>
-      <div id="playersList" class="chips"></div>
-      <div class="row">
-        <button class="danger" id="clearMatchesBtn">Limpar partidas</button>
-        <button class="danger" id="undoLastBtn">Limpar última partida</button>
-        <button class="danger" id="resetAllBtn">Começar do zero</button>
+
+      <div class="stats-grid">
+        <div class="stat-card" id="sc-pescadores">
+          <div class="stat-icon">👨‍🦱</div>
+          <div class="stat-value" id="totalPescadores">–</div>
+          <div class="stat-label">Pescadores</div>
+        </div>
+        <div class="stat-card" id="sc-barcos">
+          <div class="stat-icon">🚤</div>
+          <div class="stat-value" id="totalBarcos">9</div>
+          <div class="stat-label">Barcos</div>
+        </div>
+        <div class="stat-card" id="sc-dias">
+          <div class="stat-icon">☀️</div>
+          <div class="stat-value">5</div>
+          <div class="stat-label">Dias de Pesca</div>
+        </div>
+        <div class="stat-card" id="sc-peixe">
+          <div class="stat-icon">🐟</div>
+          <div class="stat-value" id="maiorPeixe">–</div>
+          <div class="stat-label">Maior Peixe (pontuação)</div>
+        </div>
       </div>
-      <small class="muted">Dica: adicione 8 jogadores, mas funciona com qualquer número ≥ 4.</small>
+
+      <div class="info-banner">
+        <span class="pulse-dot"></span>
+        <strong>22/04/2026</strong> &nbsp;— Saída de Turmalina às 08h00 · Destino: Luiz Alves
+      </div>
+
+      <div class="card mt-lg">
+        <h3 class="card-title">🏆 Hall dos Campeões</h3>
+        <div class="champions-list">
+
+          <!-- 2024 -->
+          <div class="champion-item gold">
+            <span class="champ-year">2024</span>
+            <div class="champ-details">
+              <span class="champ-name">🥇 Alexandre</span>
+              <span class="champ-fish">Bargada · 135 cm · 405 pts <span class="champ-note">(Campeão Oficial)</span></span>
+              <span class="champ-fish">🥈 Marquim · Piraíba · 126 cm · 630 pts <span class="champ-note">(antes da fita oficial 😅)</span></span>
+              <span class="champ-fish">🏅 Ninim · Campeão do Peso · Arraia +60 kg</span>
+            </div>
+            <span class="champ-badge">🎖️ Edição Inaugural</span>
+          </div>
+
+          <!-- 2025 -->
+          <div class="champion-item silver">
+            <span class="champ-year">2025</span>
+            <div class="champ-details">
+              <span class="champ-name">🥇 Leo &amp; Ninim <span class="champ-note">(Empate histórico!)</span></span>
+              <span class="champ-fish">Piraíba · 130 cm · 650 pts cada</span>
+              <span class="champ-fish">🥈 Junior · Pirarara · 135 cm · 540 pts</span>
+              <span class="champ-fish">🏅 Troféu Anzol Cego · Max · Lambari 😂</span>
+            </div>
+            <span class="champ-badge">🥇 Campeões</span>
+          </div>
+
+          <!-- 2026 -->
+          <div class="champion-item bronze blink-border">
+            <span class="champ-year">2026</span>
+            <div class="champ-details">
+              <span class="champ-name">Em disputa…</span>
+              <span class="champ-fish">Quem vai levar o troféu este ano?</span>
+            </div>
+            <span class="champ-badge">⚔️ Batalha</span>
+          </div>
+
+        </div>
+      </div>
     </section>
 
-    <section class="card">
-      <h2>2) Registrar partida (duplas)</h2>
-
-      <div class="row">
-        <label class="switch"><input type="checkbox" id="shortSet" /><span class="slider"></span></label>
-        <span class="switch-label">Set curto (até 4)</span>
-
-        <label class="switch" style="margin-left:16px"><input type="checkbox" id="allowTB" /><span class="slider"></span></label>
-        <span class="switch-label">Permitir tiebreak (7–6 no set longo • 5–4 no set curto)</span>
-
-        <label class="switch" style="margin-left:16px"><input type="checkbox" id="allow65" /><span class="slider"></span></label>
-        <span class="switch-label">Permitir 6–5 (Super 8 longo)</span>
-
-        <label class="switch" style="margin-left:16px"><input type="checkbox" id="fixed6" /><span class="slider"></span></label>
-        <span class="switch-label">6 games fixos (A+B=6)</span>
+    <!-- CRONOGRAMA -->
+    <section class="section" id="cronograma">
+      <div class="section-hero">
+        <h2 class="section-title">📅 CRONOGRAMA</h2>
+        <p class="section-desc">A jornada épica começa aqui. Cada capítulo desta história foi escrito com suor, sol e muita linha no fundo do rio.</p>
       </div>
+      <div class="timeline">
 
-      <div class="grid2">
-        <div><h3>Dupla A</h3><select id="a1"></select><select id="a2"></select></div>
-        <div><h3>Dupla B</h3><select id="b1"></select><select id="b2"></select></div>
+        <div class="timeline-chapter">
+          <div class="chapter-badge">Capítulo 1</div>
+          <h3>⚓ Partida</h3>
+          <div class="timeline-item">
+            <span class="time-tag">22/04 · 08:00</span>
+            <p>Saída de <strong>Turmalina</strong>. Carros carregados, espíritos em chamas, famílias acenando (ou rezando). A aventura começa.</p>
+          </div>
+        </div>
+
+        <div class="timeline-chapter">
+          <div class="chapter-badge">Capítulo 2</div>
+          <h3>🚗 Travessia</h3>
+          <div class="timeline-item">
+            <span class="time-tag">~24 horas</span>
+            <p>24 horas de viagem. Pare para abastecer. Pare para o banheiro. Não pare para dormir — tem muito papo pela frente.</p>
+          </div>
+        </div>
+
+        <div class="timeline-chapter">
+          <div class="chapter-badge">Capítulo 3</div>
+          <h3>🏕️ Chegada</h3>
+          <div class="timeline-item">
+            <span class="time-tag">23/04 · Chegada</span>
+            <p>Chegada em <strong>Luiz Alves</strong>. Organização dos quartos, distribuição dos barcos, costela na brasa e leitura do regulamento — em voz alta, pra ninguém dizer que não sabia.</p>
+          </div>
+        </div>
+
+        <div class="timeline-chapter">
+          <div class="chapter-badge">Rotina Diária</div>
+          <h3>🌅 Dias de Pesca</h3>
+          <div class="fishing-days-badges">
+            <span class="day-badge">24/04</span>
+            <span class="day-badge">25/04</span>
+            <span class="day-badge">26/04</span>
+            <span class="day-badge">27/04</span>
+            <span class="day-badge">28/04</span>
+          </div>
+          <div class="schedule-grid">
+            <div class="schedule-item"><span class="sched-time">06:00</span><span class="sched-label">☕ Café da manhã</span></div>
+            <div class="schedule-item"><span class="sched-time">07:00</span><span class="sched-label">🚤 Saída dos barcos</span></div>
+            <div class="schedule-item"><span class="sched-time">12:00</span><span class="sched-label">🍽️ Almoço no rio</span></div>
+            <div class="schedule-item"><span class="sched-time">17:00</span><span class="sched-label">⚓ Retorno ao porto</span></div>
+            <div class="schedule-item"><span class="sched-time">20:00</span><span class="sched-label">🌙 Jantar</span></div>
+          </div>
+        </div>
+
+        <div class="timeline-chapter">
+          <div class="chapter-badge">Retorno</div>
+          <h3>🏠 Volta pra Casa</h3>
+          <div class="schedule-grid">
+            <div class="schedule-item"><span class="sched-time">14:00</span><span class="sched-label">🍽️ Último almoço</span></div>
+            <div class="schedule-item"><span class="sched-time">17:00</span><span class="sched-label">🧳 Malas prontas</span></div>
+            <div class="schedule-item"><span class="sched-time">18:00</span><span class="sched-label">🚗 Saída para casa</span></div>
+          </div>
+        </div>
+
       </div>
-
-      <div class="row">
-        <input id="scoreA" type="number" min="0" max="7" placeholder="Games A" />
-        <span class="x">x</span>
-        <input id="scoreB" type="number" min="0" max="7" placeholder="Games B" />
-        <input id="roundNo" type="number" min="1" value="1" class="round" />
-        <button id="addMatchBtn">Registrar</button>
-      </div>
-
-      <small class="muted" id="ruleHint"></small>
-      <div id="msg" class="msg"></div>
-      <h3>Partidas</h3>
-      <div id="matches"></div>
     </section>
 
-    <section class="card">
-      <h2>3) Ranking</h2>
-      <div id="table"></div>
-      <div class="row">
-        <button id="genZap">Gerar mensagem para WhatsApp</button>
-        <button id="copyZap">Copiar mensagem</button>
+    <!-- REGULAMENTO -->
+    <section class="section" id="regulamento">
+      <div class="section-hero">
+        <h2 class="section-title">📜 REGULAMENTO</h2>
+        <p class="section-desc">Leia com atenção. A comissão não aceita choro, barganha, nem "mas eu não sabia".</p>
       </div>
-      <textarea id="zap" rows="14" readonly></textarea>
-      <div id="toast" class="toast" aria-live="polite"></div>
+      <div class="reg-grid">
+        <div class="card">
+          <h3 class="card-title">🎯 Tabela de Pontuação</h3>
+          <div class="pontos-table">
+            <div class="ponto-row header-row"><span>Espécie</span><span>Por cm</span><span>Exemplo (100cm)</span></div>
+            <div class="ponto-row piraiba"><span>🐟 Piraíba</span><span class="pts">5 pts</span><span>500 pts</span></div>
+            <div class="ponto-row pirarara"><span>🐟 Pirarara</span><span class="pts">4 pts</span><span>400 pts</span></div>
+            <div class="ponto-row pirarucu"><span>🐟 Pirarucu</span><span class="pts">4 pts</span><span>400 pts</span></div>
+            <div class="ponto-row bargada"><span>🐟 Bargada</span><span class="pts">3 pts</span><span>300 pts</span></div>
+            <div class="ponto-row cachara"><span>🐟 Cachara</span><span class="pts">3 pts</span><span>300 pts</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">⚖️ Regras de Captura</h3>
+          <ul class="rules-list">
+            <li>📏 Medição com régua <strong>oficial da comissão</strong></li>
+            <li>📹 Vídeo obrigatório mostrando peixe e medida visível</li>
+            <li>1️⃣ Apenas <strong>1 peixe por pescador</strong> — escolha bem!</li>
+            <li>✅ Comissão valida todas as capturas</li>
+            <li>⛔ Fraude = desclassificação imediata e vergonha eterna</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="card-title">🥇 Premiação</h3>
+          <ul class="rules-list">
+            <li>🏆 Vence quem tiver <strong>maior pontuação</strong></li>
+            <li>🎖️ Troféu personalizado Araguaia 2026</li>
+            <li>📸 Foto no Hall dos Campeões</li>
+            <li>👑 Glória eterna entre os pescadores</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 class="card-title">🦺 Segurança</h3>
+          <ul class="rules-list">
+            <li>🦺 <strong>Colete salva-vidas obrigatório</strong> em todos os barcos</li>
+            <li>⚠️ Cada equipe é responsável pelos seus membros</li>
+            <li>🆘 Em emergência, sinalizar e aguardar auxílio</li>
+            <li>🌩️ Tempestade = recolher imediatamente</li>
+          </ul>
+        </div>
+      </div>
     </section>
+
+    <!-- CARDÁPIO -->
+    <section class="section" id="cardapio">
+      <div class="section-hero">
+        <h2 class="section-title">🍖 CARDÁPIO</h2>
+        <p class="section-desc">A cozinha promete. O cozinheiro também (mas sem garantia). Barriga cheia, pescador feliz.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-date">23/04 · Chegada</div>
+          <span class="menu-icon">🔥</span>
+          <h3>Churrasco</h3>
+          <p>Frango com andu. Bem-vindo ao paraíso. A brasa já tá acesa, só falta você chegar.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-date">24/04 · Dia 1 de pesca</div>
+          <span class="menu-icon">🍖</span>
+          <h3>Costelinha</h3>
+          <p>Costelinha + arroz + feijão. O clássico nacional. Simples, honesto e irresistível.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-date">25/04 · Dia 2 de pesca</div>
+          <span class="menu-icon">🥚</span>
+          <h3>Farofa de Ovo</h3>
+          <p>Farofa de ovo com andu. Leve, saborosa e perfeita pra quem ainda não pegou nada.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-date">27/04 · Dia 3 de pesca</div>
+          <span class="menu-icon">🥩</span>
+          <h3>Carne Cozida</h3>
+          <p>Carne cozida + arroz + feijão. Sustentou gerações, vai sustentar você também.</p>
+        </div>
+        <div class="menu-card">
+          <div class="menu-date">28/04 · Último dia</div>
+          <span class="menu-icon">🍗</span>
+          <h3>Frango</h3>
+          <p>Frango + arroz + feijão. Despedida digna. O rio vai sentir sua falta (talvez).</p>
+        </div>
+        <div class="menu-card cafe-card">
+          <div class="menu-date">Todo dia · 06:00</div>
+          <span class="menu-icon">☕</span>
+          <h3>Café da Manhã</h3>
+          <p>🍳 Pão com ovo<br/>🥩 Pão com carne<br/>Escolha um. Ou os dois. Ninguém tá te vendo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPETIÇÃO -->
+    <section class="section" id="competicao">
+      <div class="section-hero">
+        <h2 class="section-title">🏆 COMPETIÇÃO</h2>
+        <p class="section-desc">Registre sua captura. Que os pontos falem mais alto que as histórias.</p>
+      </div>
+      <div class="comp-grid">
+        <div class="card">
+          <h3 class="card-title">🎣 Registrar Captura</h3>
+          <div class="form-group">
+            <label>Pescador</label>
+            <input type="text" id="fishName" placeholder="Nome do pescador..." class="input-field" autocomplete="off" />
+          </div>
+          <div class="form-group">
+            <label>Espécie</label>
+            <select id="fishSpecies" class="input-field">
+              <option value="">Selecione a espécie</option>
+              <option value="piraiba">🐟 Piraíba (5 pts/cm)</option>
+              <option value="pirarara">🐟 Pirarara (4 pts/cm)</option>
+              <option value="pirarucu">🐟 Pirarucu (4 pts/cm)</option>
+              <option value="bargada">🐟 Bargada (3 pts/cm)</option>
+              <option value="cachara">🐟 Cachara (3 pts/cm)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Tamanho (cm)</label>
+            <input type="number" id="fishSize" placeholder="Ex: 85" min="1" max="400" class="input-field" />
+          </div>
+          <div class="pontos-preview" id="pontosPreview">
+            <span>Pontuação estimada</span>
+            <strong id="previewPts">–</strong>
+          </div>
+          <button class="btn-primary" onclick="registrarCaptura()">⚡ REGISTRAR CAPTURA</button>
+          <div class="form-msg" id="formMsg"></div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">🏅 Ranking ao Vivo</h3>
+          <div id="rankingList" class="ranking-list">
+            <div class="empty-ranking">Nenhuma captura ainda.<br/>Seja o primeiro campeão! 🎣</div>
+          </div>
+          <button class="btn-danger mt-sm" onclick="limparRanking()">🗑️ Limpar ranking</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGÍSTICA -->
+    <section class="section" id="logistica">
+      <div class="section-hero">
+        <h2 class="section-title">🚤 LOGÍSTICA</h2>
+        <p class="section-desc">Barcos, tripulações e quartos. Tudo organizado para que ninguém acabe dormindo no chão (desta vez).</p>
+      </div>
+      <div class="log-grid">
+        <div class="card">
+          <h3 class="card-title">⚓ Barcos & Tripulações</h3>
+          <div class="boat-list" id="boatList"></div>
+        </div>
+        <div class="card">
+          <h3 class="card-title">🛏️ Quartos</h3>
+          <div class="room-list" id="roomList"></div>
+        </div>
+      </div>
+      <div class="card mt-lg">
+        <h3 class="card-title">🔎 Buscar Pescador</h3>
+        <input type="text" id="searchPescador" placeholder="Digite o nome do pescador..." class="input-field" oninput="buscarPescador()" autocomplete="off" />
+        <div id="searchResult" class="search-result"></div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="section" id="galeria">
+      <div class="section-hero">
+        <h2 class="section-title">📸 GALERIA</h2>
+        <p class="section-desc">Registre os momentos. O peixe pode ser pequeno, mas a foto vai ser épica.</p>
+      </div>
+      <div class="card">
+        <div class="upload-area" id="uploadArea" onclick="abrirUploadCloudinary()">
+          <span class="upload-icon">📷</span>
+          <span>Clique para adicionar fotos</span>
+          <small style="color:var(--text-dim);margin-top:6px;display:block">As fotos ficam salvas e visíveis para todos 🌐</small>
+        </div>
+        <div id="uploadStatus" style="min-height:20px;margin-top:8px;font-size:0.85rem;text-align:center;color:var(--teal-lt)"></div>
+      </div>
+      <div id="galleryLoading" style="display:none;text-align:center;padding:24px;color:var(--text-dim)">
+        ⏳ Carregando fotos…
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </section>
+
+    <!-- TRANSPARÊNCIA -->
+    <section class="section" id="transparencia">
+      <div class="section-hero">
+        <h2 class="section-title">🔒 TRANSPARÊNCIA</h2>
+        <p class="section-desc">Porque pescador honesto não precisa esconder nada. (Exceto o ponto secreto do rio.)</p>
+      </div>
+      <div class="reg-grid">
+        <div class="card transp-card">
+          <div class="transp-icon">💰</div>
+          <h3>Financeiro</h3>
+          <p>Prestação de contas da vaquinha, combustível, alimentação e despesas da expedição.</p>
+          <span class="badge-em-breve">Em breve</span>
+        </div>
+        <div class="card transp-card">
+          <div class="transp-icon">📋</div>
+          <h3>Validações</h3>
+          <p>Registro de capturas validadas pela comissão oficial com data, hora e testemunhas.</p>
+          <span class="badge-em-breve">Em breve</span>
+        </div>
+        <div class="card transp-card">
+          <div class="transp-icon">📊</div>
+          <h3>Estatísticas</h3>
+          <p>Dados históricos: espécies mais capturadas, melhores pescadores e recordes da competição.</p>
+          <span class="badge-em-breve">Em breve</span>
+        </div>
+        <div class="card transp-card">
+          <div class="transp-icon">🏛️</div>
+          <h3>Atas & Decisões</h3>
+          <p>Decisões da comissão, recursos julgados e comunicados oficiais da pescaria esportiva.</p>
+          <span class="badge-em-breve">Em breve</span>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
-    <small>Feito para rodar no celular • Salva dados localmente (navegador). • <b>v6.3</b></small>
-  </footer>
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js?v=v6.3"></script>
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+  <script src="app.js"></script>
 </body>
 </html>
