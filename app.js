@@ -329,8 +329,58 @@ function buscarPescador() {
 }
 
 /* ===========================
-   GALERIA — CLOUDINARY
+   CONTAGEM REGRESSIVA
 =========================== */
+const LARGADA = new Date('2026-04-22T08:00:00');
+
+function initCountdown() {
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+}
+
+function tickCountdown() {
+  const agora = new Date();
+  const diff  = LARGADA - agora;
+
+  const labelTop = document.getElementById('cdLabelTop');
+  const cdSub    = document.getElementById('cdSub');
+  const cdUnits  = document.getElementById('cdUnits');
+
+  if (!labelTop) return;
+
+  if (diff <= 0) {
+    // Já saiu!
+    labelTop.textContent = '🎣 A expedição está em andamento!';
+    cdSub.textContent    = 'Bons peixes a todos no Araguaia!';
+    if (cdUnits) cdUnits.style.display = 'none';
+    return;
+  }
+
+  if (cdUnits) cdUnits.style.display = 'flex';
+
+  const dias  = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const min   = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seg   = Math.floor((diff % (1000 * 60)) / 1000);
+
+  document.getElementById('cdDias').textContent  = String(dias).padStart(2, '0');
+  document.getElementById('cdHoras').textContent = String(horas).padStart(2, '0');
+  document.getElementById('cdMin').textContent   = String(min).padStart(2, '0');
+  document.getElementById('cdSeg').textContent   = String(seg).padStart(2, '0');
+
+  // Mensagem dinâmica
+  if (dias === 0 && horas === 0) {
+    labelTop.textContent = '🚨 MENOS DE 1 HORA PRA LARGADA!';
+  } else if (dias === 0) {
+    labelTop.textContent = '🔥 É HOJE! Faltam apenas';
+  } else if (dias === 1) {
+    labelTop.textContent = '⏳ Falta 1 dia para a largada';
+  } else {
+    labelTop.textContent = '⏳ Faltam para a largada';
+  }
+}
+
+
 const CLOUDINARY_CLOUD = 'dgcbu6x0j';
 const CLOUDINARY_PRESET = 'araguaia2026'; // upload preset (unsigned)
 const CLOUDINARY_FOLDER = 'araguaia2026';
@@ -575,15 +625,69 @@ function initObserver() {
 }
 
 /* ===========================
+   CARROSSEL
+=========================== */
+function initCarousel() {
+  const track  = document.getElementById('carouselTrack');
+  const slides = track ? Array.from(track.querySelectorAll('.carousel-slide')) : [];
+  const dotsEl = document.getElementById('carouselDots');
+  const prev   = document.getElementById('carouselPrev');
+  const next   = document.getElementById('carouselNext');
+
+  if (!slides.length) return;
+
+  let current = 0;
+  let autoTimer;
+
+  // Criar dots
+  dotsEl.innerHTML = slides.map((_, i) =>
+    `<div class="carousel-dot${i === 0 ? ' active' : ''}" data-i="${i}"></div>`
+  ).join('');
+
+  const dots = dotsEl.querySelectorAll('.carousel-dot');
+
+  function goTo(idx) {
+    current = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    track.style.transition = 'transform 0.45s cubic-bezier(0.4,0,0.2,1)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  // Tornar a track flex com translateX
+  track.style.display   = 'flex';
+  track.style.transform = 'translateX(0)';
+
+  prev.addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+  next.addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetAuto(); }));
+
+  // Touch/swipe
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+  });
+
+  // Autoplay
+  function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 4000); }
+  function resetAuto()  { clearInterval(autoTimer); startAuto(); }
+  startAuto();
+}
+
+/* ===========================
    INIT
 =========================== */
 document.addEventListener('DOMContentLoaded', () => {
   initScrollHeader();
   initNav();
   initObserver();
+  initCountdown();
+  initCarousel();
   updateDashboard();
   renderLogistica();
-  renderGaleriaCloud(); // carrega do cache local imediatamente
+  renderGaleriaCloud();
   initPontosPreview();
   renderRanking();
 
